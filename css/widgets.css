@@ -1,0 +1,304 @@
+/* ── 毛玻璃小组件通用 ── */
+.glass-widget {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    border-radius: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ── 顶部信息小组件 ── */
+.top-widget {
+    margin-top: 10px;
+    padding: 14px 16px 12px;
+    flex-shrink: 0;
+}
+
+.tw-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.tw-row:last-child {
+    margin-bottom: 0;
+}
+
+/* 头像 — 点击换图 */
+.tw-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: 1.5px solid rgba(200, 200, 198, 0.5);
+    position: relative;
+    transition: opacity 0.2s;
+}
+
+.tw-avatar:hover {
+    opacity: 0.85;
+}
+
+.avatar-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-default svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* hover提示 */
+.avatar-hover-tip {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 50%;
+}
+
+.tw-avatar:hover .avatar-hover-tip {
+    opacity: 1;
+}
+
+/* 格言输入框 */
+.tw-motto-wrap {
+    flex: 1;
+    background: rgba(238, 238, 236, 0.6);
+    border-radius: 20px;
+    padding: 7px 14px;
+    border: 1px solid rgba(218, 218, 216, 0.55);
+}
+
+.tw-motto {
+    font-size: 13px;
+    color: #3a3a3a;
+    letter-spacing: 0.5px;
+    min-height: 18px;
+    line-height: 1.4;
+}
+
+.tw-motto:empty::before {
+    content: attr(data-placeholder);
+    color: #c0c0be;
+    pointer-events: none;
+}
+
+/* 信息行 */
+.tw-info-row {
+    background: rgba(238, 238, 236, 0.55);
+    border-radius: 12px;
+    padding: 7px 12px;
+    border: 1px solid rgba(218, 218, 216, 0.4);
+}
+
+.tw-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    min-width: 50px;
+}
+
+.tw-field {
+    flex: 1;
+    font-size: 12px;
+    color: #777;
+    letter-spacing: 0.3px;
+    min-height: 16px;
+    line-height: 1.4;
+}
+
+.tw-field:empty::before {
+    content: attr(data-placeholder);
+    color: #c8c8c6;
+    pointer-events: none;
+}
+
+/* ── 双小组件行 ── */
+.mini-widgets-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    align-items: stretch;
+}
+
+/* 左侧笔记小组件 */
+.widget-note {
+    flex: 1.05;
+    min-height: 148px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: visible;
+}
+
+/* 回形针 */
+.clip-deco {
+    position: absolute;
+    top: -14px;
+    left: 18px;
+    z-index: 5;
+    color: #b0b0ae;
+}
+
+.clip-deco svg {
+    width: 12px;
+    height: 28px;
+}
+
+/* 图片区域 */
+.note-img-area {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(228, 228, 226, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    min-height: 96px;
+    border: 1px solid rgba(218, 218, 216, 0.5);
+    transition: background 0.2s;
+    position: relative;
+}
+
+.note-img-area:hover {
+    background: rgba(218, 218, 216, 0.65);
+}
+
+/* 笔记底部标签 */
+.note-label {
+    margin-top: 7px;
+    font-size: 11px;
+    font-style: italic;
+    color: #888;
+    letter-spacing: 0.5px;
+    padding: 0 2px;
+    min-height: 15px;
+    line-height: 1.4;
+}
+
+.note-label:empty::before {
+    content: attr(data-placeholder);
+    color: #c8c8c6;
+    pointer-events: none;
+}
+
+/* 右侧图片小组件 */
+.widget-photo {
+    flex: 1;
+    min-height: 148px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    transition: background 0.2s;
+}
+
+.dashed-widget {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 1.5px dashed rgba(178, 178, 176, 0.7) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.dashed-widget:hover {
+    background: rgba(255, 255, 255, 0.38) !important;
+}
+
+/* 图片占位符 */
+.img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #c0c0be;
+    pointer-events: none;
+}
+
+.img-placeholder svg {
+    width: 26px;
+    height: 26px;
+}
+
+.img-placeholder span {
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    color: #c0c0be;
+}
+
+/* 小组件图片 */
+.widget-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+/* 图片删除按钮 */
+.img-remove-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.32);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border: none;
+}
+
+.widget-note:hover .img-remove-btn,
+.widget-photo:hover .img-remove-btn {
+    opacity: 1;
+}

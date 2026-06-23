@@ -1,0 +1,790 @@
+/* ═══════════════════════════════════════════════════════
+   worldbook.css  世界书 APP 样式
+   黑白ins线条风 · 左侧Dock · 分组折叠 · 条目卡片
+═══════════════════════════════════════════════════════ */
+
+/* ── APP 容器 ── */
+.wb-app {
+    position: absolute;
+    inset: 0;
+    z-index: 300;
+    background: #f2f2f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: wbSlideIn 0.3s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+@keyframes wbSlideIn {
+    from {
+        transform: translateY(100%) scale(0.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes wbSlideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(60%);
+        opacity: 0;
+    }
+}
+
+/* ── 顶栏 ── */
+.wb-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 52px 16px 12px;
+    background: rgba(242, 242, 240, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(210, 210, 208, 0.5);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.wb-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.wb-close:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.wb-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.wb-topbar-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    letter-spacing: 0.3px;
+}
+
+/* ── 主体布局 ── */
+.wb-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ── 左侧 Dock ── */
+.wb-dock {
+    width: 64px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    border-right: 1px solid rgba(210, 210, 208, 0.5);
+}
+
+.wb-dock-item {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+}
+
+.wb-dock-item svg {
+    width: 20px;
+    height: 20px;
+}
+
+.wb-dock-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #555;
+}
+
+.wb-dock-active {
+    background: rgba(0, 0, 0, 0.07) !important;
+    color: #1a1a1a !important;
+}
+
+/* ── 右侧内容 ── */
+.wb-main {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.wb-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── 面板顶栏 ── */
+.wb-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(210, 210, 208, 0.4);
+}
+
+.wb-panel-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a2a2a;
+    letter-spacing: 0.3px;
+}
+
+.wb-add-group-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid #ccc;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.wb-add-group-btn:hover {
+    border-color: #888;
+    background: #f5f5f5;
+}
+
+.wb-add-group-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ── 分组列表滚动区 ── */
+.wb-group-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wb-group-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.wb-group-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+}
+
+/* ── 空状态 ── */
+.wb-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+    min-height: 160px;
+    color: #ccc;
+}
+
+.wb-empty svg {
+    width: 30px;
+    height: 30px;
+}
+
+.wb-empty p {
+    font-size: 12px;
+    color: #ccc;
+    letter-spacing: 0.3px;
+}
+
+/* ── 分组卡片 ── */
+.wb-group-card {
+    background: #fff;
+    border: 1px solid rgba(220, 220, 218, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.wb-group-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s;
+}
+
+.wb-group-head:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.wb-group-arrow {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.wb-group-arrow svg {
+    width: 12px;
+    height: 12px;
+}
+
+.wb-group-card.wb-open .wb-group-arrow {
+    transform: rotate(90deg);
+}
+
+.wb-group-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2a2a2a;
+}
+
+.wb-group-count {
+    font-size: 11px;
+    color: #bbb;
+    background: #f2f2f0;
+    border-radius: 20px;
+    padding: 1px 7px;
+}
+
+.wb-group-del {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.15s, background 0.15s;
+}
+
+.wb-group-del:hover {
+    color: #e05050;
+    background: rgba(224, 80, 80, 0.08);
+}
+
+.wb-group-del svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* ── 分组内容（折叠体） ── */
+.wb-group-body {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(220, 220, 218, 0.4);
+    padding: 6px 8px 8px;
+}
+
+.wb-group-card.wb-open .wb-group-body {
+    display: flex;
+}
+
+/* ── 添加条目按钮 ── */
+.wb-add-entry-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1.4px dashed #ddd;
+    background: transparent;
+    color: #aaa;
+    font-size: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 4px;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.wb-add-entry-btn:hover {
+    border-color: #aaa;
+    color: #555;
+}
+
+.wb-add-entry-btn svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* ── 条目行 ── */
+.wb-entry-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 6px;
+    border-radius: 8px;
+    transition: background 0.12s;
+    cursor: pointer;
+}
+
+.wb-entry-row:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.wb-entry-toggle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.wb-entry-toggle.wb-on {
+    border-color: #2a2a2a;
+    background: #2a2a2a;
+}
+
+.wb-entry-toggle.wb-on::after {
+    content: '';
+    width: 5px;
+    height: 8px;
+    border: 1.5px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+    display: block;
+}
+
+.wb-entry-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.wb-entry-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #2a2a2a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wb-entry-meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.wb-entry-pos {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 20px;
+    background: #f2f2f0;
+    color: #888;
+    letter-spacing: 0.2px;
+}
+
+.wb-entry-pos--before {
+    background: #e8f4e8;
+    color: #4a8a4a;
+}
+
+.wb-entry-pos--middle {
+    background: #fff4e0;
+    color: #a07020;
+}
+
+.wb-entry-pos--after {
+    background: #f0e8f8;
+    color: #6a3a9a;
+}
+
+.wb-entry-kw {
+    font-size: 10px;
+    color: #bbb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+}
+
+.wb-entry-edit {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.15s, background 0.15s;
+}
+
+.wb-entry-edit:hover {
+    color: #555;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.wb-entry-edit svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* ══════════════════════════════════════
+   弹窗
+══════════════════════════════════════ */
+.wb-modal {
+    position: absolute;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: wbFadeIn 0.18s ease;
+}
+
+@keyframes wbFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.wb-modal-box {
+    width: 100%;
+    max-height: 88vh;
+    background: #f2f2f0;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: wbSheetUp 0.25s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+@keyframes wbSheetUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.wb-modal-box--sm {
+    max-height: 50vh;
+}
+
+.wb-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 18px 12px;
+    border-bottom: 1px solid rgba(210, 210, 208, 0.5);
+    flex-shrink: 0;
+}
+
+.wb-modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.wb-modal-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+}
+
+.wb-modal-close svg {
+    width: 15px;
+    height: 15px;
+}
+
+.wb-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.wb-modal-body::-webkit-scrollbar {
+    width: 3px;
+}
+
+.wb-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+}
+
+.wb-modal-footer {
+    display: flex;
+    gap: 10px;
+    padding: 12px 18px 24px;
+    border-top: 1px solid rgba(210, 210, 208, 0.4);
+    flex-shrink: 0;
+}
+
+/* ── 表单字段 ── */
+.wb-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wb-label {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.wb-label-hint {
+    font-weight: 400;
+    color: #bbb;
+}
+
+.wb-input,
+.wb-select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.4px solid rgba(210, 210, 208, 0.8);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 13px;
+    color: #1a1a1a;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+.wb-input:focus,
+.wb-select:focus {
+    border-color: #888;
+}
+
+.wb-textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.4px solid rgba(210, 210, 208, 0.8);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 13px;
+    color: #1a1a1a;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    box-sizing: border-box;
+    line-height: 1.6;
+    transition: border-color 0.15s;
+}
+
+.wb-textarea:focus {
+    border-color: #888;
+}
+
+/* ── 注入位置三选一 ── */
+.wb-inject-tabs {
+    display: flex;
+    gap: 7px;
+}
+
+.wb-inject-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 4px;
+    border-radius: 10px;
+    border: 1.4px solid rgba(210, 210, 208, 0.8);
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: center;
+}
+
+.wb-inject-tab:hover {
+    border-color: #aaa;
+}
+
+.wb-inject-active {
+    border-color: #2a2a2a !important;
+    background: #2a2a2a !important;
+    color: #fff;
+}
+
+.wb-inject-label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.wb-inject-desc {
+    font-size: 9px;
+    color: #aaa;
+    line-height: 1.3;
+}
+
+.wb-inject-active .wb-inject-desc {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── 位置说明气泡 ── */
+.wb-pos-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 9px 12px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 9px;
+    margin-top: 6px;
+    color: #666;
+}
+
+.wb-pos-hint svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.wb-pos-hint span {
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* ── 弹窗按钮 ── */
+.wb-btn-cancel {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    border: 1.4px solid rgba(210, 210, 208, 0.8);
+    background: #fff;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.wb-btn-cancel:hover {
+    background: #f0f0ee;
+}
+
+.wb-btn-save {
+    flex: 2;
+    padding: 11px;
+    border-radius: 10px;
+    border: none;
+    background: #2a2a2a;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.wb-btn-save:hover {
+    background: #444;
+}
+
+/* ── 条目行：角色名标签 ── */
+.wb-entry-char {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 20px;
+    background: #e8eef8;
+    color: #3a5a9a;
+    letter-spacing: 0.2px;
+    flex-shrink: 0;
+}
+
+/* ── 必选标签 ── */
+.wb-label-required {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    background: #2a2a2a;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 5px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+}
+
+/* ── 必选标签 ── */
+.wb-label-required {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    background: #2a2a2a;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 5px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+}

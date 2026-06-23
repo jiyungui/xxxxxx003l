@@ -1,0 +1,457 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+[contenteditable]:focus {
+    outline: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+}
+
+/* ════════════════════════════════════════════
+   屏幕调整 专用样式
+════════════════════════════════════════════ */
+
+/* ── 色调滤镜网格 ── */
+.sc-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.sc-filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 0;
+}
+
+.sc-filter-item span {
+    font-size: 10px;
+    color: #888;
+    letter-spacing: 0.2px;
+}
+
+.sc-filter-item.active span {
+    color: #2a2a2a;
+    font-weight: 600;
+}
+
+.sc-filter-preview {
+    width: 52px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1.5px solid rgba(200, 200, 198, 0.4);
+    transition: all 0.15s;
+    color: #2a2a2a;
+    letter-spacing: 0.5px;
+}
+
+.sc-filter-item.active .sc-filter-preview {
+    border-color: #2a2a2a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.sc-filter-item:active .sc-filter-preview {
+    transform: scale(0.94);
+}
+
+.sc-filter-none {
+    background: rgba(245, 245, 243, 0.8);
+}
+
+.sc-filter-retro {
+    background: rgba(220, 190, 140, 0.5);
+    filter: sepia(0.4);
+}
+
+.sc-filter-dopamine {
+    background: linear-gradient(135deg, rgba(255, 180, 180, 0.5), rgba(180, 180, 255, 0.5));
+}
+
+.sc-filter-cream {
+    background: rgba(255, 248, 235, 0.85);
+}
+
+.sc-filter-cool {
+    background: rgba(210, 230, 255, 0.6);
+}
+
+.sc-filter-warm {
+    background: rgba(255, 235, 200, 0.65);
+}
+
+.sc-filter-ink {
+    background: rgba(200, 200, 200, 0.5);
+    filter: grayscale(0.5);
+}
+
+.sc-filter-sakura {
+    background: rgba(255, 210, 220, 0.55);
+}
+
+/* ── 开关 ── */
+.sc-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+    gap: 12px;
+}
+
+.sc-toggle-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.sc-toggle-info svg {
+    width: 18px;
+    height: 18px;
+    color: #555;
+    flex-shrink: 0;
+}
+
+.sc-toggle-label {
+    font-size: 13px;
+    color: #2a2a2a;
+    letter-spacing: 0.2px;
+}
+
+.sc-toggle-sub {
+    font-size: 11px;
+    color: #aaa;
+    letter-spacing: 0.2px;
+    margin-top: 1px;
+}
+
+.sc-divider {
+    height: 1px;
+    background: rgba(220, 220, 218, 0.4);
+    margin: 10px 0;
+}
+
+/* iOS风开关 */
+.sc-switch {
+    position: relative;
+    width: 44px;
+    height: 26px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.sc-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.sc-switch-thumb {
+    position: absolute;
+    inset: 0;
+    background: rgba(200, 200, 198, 0.5);
+    border-radius: 13px;
+    border: 1px solid rgba(180, 180, 178, 0.4);
+    transition: all 0.22s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+.sc-switch-thumb::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    transition: left 0.22s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+.sc-switch input:checked+.sc-switch-thumb {
+    background: #2a2a2a;
+    border-color: #2a2a2a;
+}
+
+.sc-switch input:checked+.sc-switch-thumb::after {
+    left: 20px;
+}
+
+/* ── 屏幕位置方向盘 ── */
+.sc-position-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0 4px;
+}
+
+.sc-pos-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sc-pos-mid {
+    gap: 6px;
+}
+
+.sc-pos-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(240, 240, 238, 0.7);
+    border: 1px solid rgba(210, 210, 208, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.12s;
+    color: #444;
+}
+
+.sc-pos-btn:hover {
+    background: rgba(220, 220, 218, 0.9);
+}
+
+.sc-pos-btn:active {
+    transform: scale(0.9);
+    background: rgba(200, 200, 198, 0.9);
+}
+
+.sc-pos-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.sc-pos-reset {
+    background: rgba(42, 42, 42, 0.07);
+    border-color: rgba(42, 42, 42, 0.15);
+}
+
+.sc-pos-info {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin-top: 4px;
+}
+
+/* ── 顶部小组件选择 ── */
+.sc-widget-switch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sc-widget-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid rgba(210, 210, 208, 0.5);
+    background: rgba(240, 240, 238, 0.5);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.sc-widget-opt.active {
+    border-color: #2a2a2a;
+    background: rgba(42, 42, 42, 0.05);
+}
+
+.sc-widget-opt:active {
+    transform: scale(0.98);
+}
+
+.sc-widget-opt-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(220, 220, 218, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sc-widget-opt-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #444;
+}
+
+.sc-widget-opt-info {
+    flex: 1;
+}
+
+.sc-widget-opt-name {
+    font-size: 13px;
+    color: #2a2a2a;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.sc-widget-opt-sub {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 2px;
+    letter-spacing: 0.2px;
+}
+
+/* ── 时区网格 ── */
+.sc-tz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.sc-tz-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 11px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(210, 210, 208, 0.5);
+    background: rgba(240, 240, 238, 0.5);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.sc-tz-item.active {
+    border-color: #2a2a2a;
+    background: rgba(42, 42, 42, 0.05);
+}
+
+.sc-tz-item:active {
+    transform: scale(0.96);
+}
+
+.sc-tz-flag {
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.sc-tz-name {
+    font-size: 11px;
+    color: #555;
+    flex: 1;
+    letter-spacing: 0.2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sc-tz-time {
+    font-size: 12px;
+    color: #2a2a2a;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+/* ── 时钟小组件（主屏幕） ── */
+.clock-widget {
+    border-radius: 22px;
+    padding: 18px 20px 14px;
+    margin: 0 16px 10px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cw-time {
+    font-size: 42px;
+    font-weight: 200;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.cw-date {
+    font-size: 12px;
+    color: #666;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.cw-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.cw-location,
+.cw-weather {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.2px;
+}
+
+.cw-location svg,
+.cw-weather svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    color: #aaa;
+}
+
+/* 夜间模式全局覆盖 */
+.night-mode {
+    background: #111 !important;
+    color: #ddd !important;
+}

@@ -1,0 +1,260 @@
+/* ── 主屏幕容器 ── */
+.home-screen {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 16px;
+}
+
+.wallpaper-layer {
+    position: absolute;
+    inset: 0;
+    background: #dfdfdd;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* ── APP 网格（6个，3列2行） ── */
+.apps-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 8px;
+    padding: 0 6px;
+    margin-top: 4px;
+}
+
+.app-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.12s ease;
+}
+
+.app-item:active {
+    transform: scale(0.86);
+}
+
+/* 统一图标尺寸 */
+.app-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.app-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #383838;
+}
+
+.app-name {
+    font-size: 11px;
+    color: #383838;
+    letter-spacing: 0.3px;
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+/* 毛玻璃图标背景 — 所有图标统一使用 */
+.glass-icon {
+    background: rgba(255, 255, 255, 0.58);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* ── Dock 栏 ── */
+.dock-bar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 16px 14px;
+    margin: auto 4px 10px;
+    border-radius: 30px;
+    flex-shrink: 0;
+}
+
+.glass-dock {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(22px) saturate(1.5);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.dock-item:active {
+    transform: scale(0.86);
+}
+
+/* dock图标与app图标同尺寸 */
+.dock-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dock-icon svg {
+    width: 26px;
+    height: 26px;
+    color: #383838;
+}
+
+.dock-name {
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 0.3px;
+}
+
+/* ── 页面指示点 ── */
+.page-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 0 3px;
+    position: relative;
+    z-index: 10;
+}
+
+.dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(80, 80, 80, 0.22);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    width: 16px;
+    border-radius: 3px;
+    background: rgba(60, 60, 60, 0.5);
+}
+
+/* ── APP覆盖层（未开发） ── */
+.app-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 200;
+    background: rgba(243, 243, 241, 0.96);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(60%) scale(0.96);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(60%);
+        opacity: 0;
+    }
+}
+
+.app-overlay-back {
+    position: absolute;
+    top: 54px;
+    left: 18px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    z-index: 5;
+}
+
+.app-overlay-back svg {
+    width: 20px;
+    height: 20px;
+    color: #444;
+}
+
+.app-overlay-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.coming-soon-icon svg {
+    width: 60px;
+    height: 60px;
+    color: #bbb;
+}
+
+.coming-soon-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2a2a2a;
+    letter-spacing: 1px;
+}
+
+.coming-soon-text {
+    font-size: 14px;
+    color: #888;
+    letter-spacing: 1.5px;
+}
+
+.coming-soon-sub {
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+}

@@ -1,12 +1,13 @@
 {
-  "name": "嘻嘻机",
-  "short_name": "嘻嘻机",
-  "description": "嘻嘻机 · 手机模拟器",
+  "name": "星星机",
+  "short_name": "星星机",
+  "description": "星星机模拟器",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#dfdfdd",
   "theme_color": "#dfdfdd",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -16,7 +17,8 @@
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

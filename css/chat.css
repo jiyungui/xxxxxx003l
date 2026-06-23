@@ -1,0 +1,3596 @@
+/* ═══════════════════════════════════════════════════════
+   chat.css  聊天 APP 样式
+   ins风 · 韩系 · 独立悬浮卡片
+═══════════════════════════════════════════════════════ */
+
+/* ── APP 容器 ── */
+.chat-app {
+    position: absolute;
+    inset: 0;
+    z-index: 300;
+    background: #f5f4f2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+@keyframes chatSlideIn {
+    from {
+        transform: translateY(100%) scale(0.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes chatSlideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(60%);
+        opacity: 0;
+    }
+}
+
+/* ── 顶栏 ── */
+.chat-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 52px 16px 12px;
+    background: rgba(245, 244, 242, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200, 200, 198, 0.4);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+/* 顶栏左侧：返回键 + 标题并排 */
+.chat-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 顶栏右侧：加号等操作 */
+.chat-topbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.chat-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.chat-close:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.chat-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.chat-topbar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+}
+
+/* ── 内容区 ── */
+.chat-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── 底部 Dock ── */
+.chat-dock {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* 悬浮卡片：不贴边，四角圆润，有阴影和外边距 */
+    margin: 0 16px calc(16px + env(safe-area-inset-bottom));
+    padding: 8px 6px;
+    background: rgba(250, 249, 248, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(200, 200, 198, 0.35);
+    border-radius: 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10), 0 1px 4px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+.chat-dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px 20px;
+    border-radius: 14px;
+    transition: background 0.15s;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+.chat-dock-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.chat-dock-item svg {
+    width: 22px;
+    height: 22px;
+    transition: color 0.15s;
+}
+
+.chat-dock-item.chat-dock-active {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.chat-dock-item.chat-dock-active svg {
+    color: #1a1a1a;
+}
+
+/* ── 面板通用 ── */
+.chat-panel {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ═══════════════════════════════════════
+   个人主页 (Profile)
+═══════════════════════════════════════ */
+
+/* -- 顶部 Banner -- */
+.cp-banner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: #e0dedd;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.cp-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* banner img 不拦截点击 */
+.cp-banner-img {
+    pointer-events: none;
+}
+
+.cp-banner-overlay {
+    pointer-events: none;
+}
+
+.cp-banner-placeholder {
+    pointer-events: none;
+}
+
+.cp-banner-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.cp-banner-placeholder svg {
+    width: 28px;
+    height: 28px;
+    opacity: 0.5;
+}
+
+.cp-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-banner:hover .cp-banner-overlay,
+.cp-banner:active .cp-banner-overlay {
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.cp-banner-tip {
+    color: #fff;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.cp-banner:hover .cp-banner-tip,
+.cp-banner:active .cp-banner-tip {
+    opacity: 1;
+}
+
+/* 原 cp-info-card 已被 cp-profile-strip 取代，保留空规则防报错 */
+.cp-info-card {
+    display: contents;
+}
+
+/* ── 头像区延伸条（与 banner 同图，高度减半） ── */
+.cp-profile-strip {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    /* 加高，头像完整显示在图内 */
+    overflow: visible;
+    /* 允许头像阴影/圆角溢出 */
+    flex-shrink: 0;
+}
+
+/* 延伸背景（与 banner 同一张图，底部对齐营造连续感） */
+.cp-strip-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    /* 居中显示完整图片 */
+    background-repeat: no-repeat;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+/* 延伸条内的双头像容器重新定位 */
+.cp-profile-strip .cp-dual-avatars {
+    position: absolute;
+    bottom: 14px;
+    /* 距离底部留间距 */
+    left: 14px;
+    margin: 0;
+    z-index: 2;
+}
+
+/* ── 双头像交叠区域 ── */
+.cp-dual-avatars {
+    position: relative;
+    width: 130px;
+    height: 88px;
+    margin: -44px 0 12px 12px;
+    /* 上移，悬浮于 banner 上 */
+}
+
+/* 后方头像（右下偏移，稍小） */
+.cp-avatar-back {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    border: 2.5px solid rgba(255, 255, 255, 0.85);
+    background: #d0d0ce;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+    transform: rotate(5deg);
+    transition: transform 0.2s;
+}
+
+.cp-avatar-back:hover {
+    transform: rotate(5deg) scale(1.04);
+}
+
+/* 前方头像（左上，略大，轻微反向旋转） */
+.cp-avatar-front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
+    border: 2.5px solid rgba(255, 255, 255, 0.92);
+    background: #e4e4e2;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    transform: rotate(-4deg);
+    z-index: 2;
+    transition: transform 0.2s;
+}
+
+.cp-avatar-front:hover {
+    transform: rotate(-4deg) scale(1.04);
+}
+
+/* 方形头像内容 */
+.cp-avatar-sq-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-avatar-sq-default svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* hover提示 */
+.cp-avatar-sq-tip {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 10px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    border-radius: 10px;
+}
+
+.cp-avatar-back:hover .cp-avatar-sq-tip,
+.cp-avatar-front:hover .cp-avatar-sq-tip {
+    opacity: 1;
+}
+
+/* 兼容旧 cp-avatar-tip（保留不报错） */
+.cp-avatar-tip {
+    display: none;
+}
+
+.cp-avatar:hover .cp-avatar-tip,
+.cp-avatar:active .cp-avatar-tip {
+    opacity: 1;
+}
+
+.cp-info-top {
+    padding-left: 88px;
+    min-height: 44px;
+}
+
+/* ── 功能列表区 ── */
+.cp-menu-wrap {
+    padding: 0 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/* 每个悬浮卡片分组 */
+.cp-menu-group {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+/* 每一行 */
+.cp-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f2f2f0;
+    transition: background 0.12s;
+    background: #fff;
+}
+
+.cp-menu-item:hover,
+.cp-menu-item:active {
+    background: #fafaf9;
+}
+
+.cp-menu-item--last {
+    border-bottom: none;
+}
+
+/* 图标容器 */
+.cp-menu-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #f2f2f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cp-menu-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #333;
+}
+
+/* 名称 */
+.cp-menu-name {
+    flex: 1;
+    font-size: 15px;
+    color: #1a1a1a;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+/* 右箭头 */
+.cp-menu-arrow {
+    width: 16px;
+    height: 16px;
+    color: #ccc;
+    flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   User 身份 浮层
+═══════════════════════════════════════ */
+.cu-sheet {
+    position: absolute;
+    inset: 0;
+    z-index: 400;
+    display: flex;
+    flex-direction: column;
+    background: #f5f4f2;
+}
+
+@keyframes cuSlideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0.6;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes cuSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0.6;
+    }
+}
+
+/* -- 顶栏 -- */
+.cu-topbar {
+    display: flex;
+    align-items: center;
+    padding: 52px 16px 12px;
+    gap: 10px;
+    background: rgba(245, 244, 242, 0.95);
+    border-bottom: 1px solid rgba(200, 200, 198, 0.4);
+    flex-shrink: 0;
+}
+
+.cu-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.cu-back:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.cu-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cu-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+    letter-spacing: 0.3px;
+}
+
+/* -- 表单滚动区 -- */
+.cu-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* -- 头像选择 -- */
+.cu-avatar-row {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+}
+
+.cu-avatar-pick {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #eee;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
+    border: 2px solid #fff;
+}
+
+.cu-avatar-pick img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cu-avatar-pick-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4e4e2;
+}
+
+.cu-avatar-pick-default svg {
+    width: 46px;
+    height: 46px;
+}
+
+.cu-avatar-pick-tip {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    border-radius: 50%;
+}
+
+.cu-avatar-pick:hover .cu-avatar-pick-tip,
+.cu-avatar-pick:active .cu-avatar-pick-tip {
+    opacity: 1;
+}
+
+/* -- 浮层卡片 -- */
+.cu-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.cu-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* -- 表单字段 -- */
+.cu-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.cu-field:last-child {
+    margin-bottom: 0;
+}
+
+.cu-label {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.cu-input,
+.cu-select,
+.cu-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #f5f4f2;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: inherit;
+    -webkit-appearance: none;
+}
+
+.cu-input:focus,
+.cu-select:focus,
+.cu-textarea:focus {
+    border-color: #c8c8c5;
+    background: #fff;
+}
+
+.cu-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='1.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 32px;
+    cursor: pointer;
+}
+
+.cu-select option {
+    color: #1a1a1a;
+    background: #fff;
+}
+
+.cu-textarea {
+    resize: none;
+    line-height: 1.6;
+}
+
+/* -- 性别选择 -- */
+.cu-gender-row {
+    display: flex;
+    gap: 10px;
+}
+
+.cu-gender-btn {
+    flex: 1;
+    padding: 10px 0;
+    border: 1.5px solid #e5e5e3;
+    border-radius: 12px;
+    background: #f5f4f2;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    font-weight: 500;
+}
+
+.cu-gender-btn.cu-gender-active {
+    border-color: #1a1a1a;
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* -- 保存按钮 -- */
+.cu-save-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.cu-save-btn:hover {
+    background: #333;
+}
+
+.cu-save-btn:active {
+    transform: scale(0.98);
+}
+
+/* -- 保存成功 toast -- */
+.cu-toast {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 13px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 500;
+}
+
+.cu-toast.cu-toast-show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   User 列表（保存后）
+═══════════════════════════════════════ */
+.cu-list-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.cu-list-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.cu-list-empty {
+    text-align: center;
+    color: #bbb;
+    font-size: 13px;
+    padding: 16px 0;
+}
+
+.cu-user-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0ee;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 0 -8px;
+}
+
+.cu-user-item:last-child {
+    border-bottom: none;
+}
+
+.cu-user-item:hover,
+.cu-user-item:active {
+    background: #f5f4f2;
+}
+
+.cu-user-item.cu-user-active {
+    background: #f0f0f8;
+}
+
+.cu-user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e4e4e2;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.cu-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cu-user-avatar-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cu-user-avatar-default svg {
+    width: 28px;
+    height: 28px;
+}
+
+.cu-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cu-user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cu-user-sub {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cu-user-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.cu-user-switch {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1.5px solid #1a1a1a;
+    background: none;
+    color: #1a1a1a;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
+}
+
+.cu-user-switch:hover,
+.cu-user-item.cu-user-active .cu-user-switch {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.cu-user-del {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #e5e5e3;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    color: #ccc;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.cu-user-del:hover {
+    border-color: #e05050;
+    color: #e05050;
+}
+
+.cu-user-del svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* 当前激活标记 */
+.cu-active-badge {
+    font-size: 10px;
+    font-weight: 600;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+/* ── cuSheet 顶栏加号/叉号按钮 ── */
+.cu-add-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1a1a1a;
+    border-radius: 50%;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.cu-add-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.cu-add-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* cuListCard 始终显示（无 hidden 状态） */
+.cu-list-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 4px 8px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* ═══════════════════════════════════════
+   对话面板 (Talk)
+═══════════════════════════════════════ */
+
+/* ── 分组胶囊栏 ── */
+.talk-group-bar {
+    flex-shrink: 0;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid rgba(200, 200, 198, 0.35);
+    background: rgba(245, 244, 242, 0.97);
+}
+
+.talk-group-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: center;
+    padding-bottom: 2px;
+}
+
+.talk-group-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.talk-group-pill {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #e0dfdd;
+    background: #fff;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.talk-group-pill.talk-group-active {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+    font-weight: 600;
+}
+
+.talk-group-add {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px dashed #ccc;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #aaa;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.talk-group-add:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+.talk-group-add svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ── 会话列表 ── */
+.talk-list {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 0;
+}
+
+.talk-conv-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.12s;
+    position: relative;
+}
+
+.talk-conv-item:hover,
+.talk-conv-item:active {
+    background: #f5f4f2;
+}
+
+.talk-conv-item+.talk-conv-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 72px;
+    right: 16px;
+    height: 1px;
+    background: rgba(200, 200, 198, 0.4);
+}
+
+.talk-conv-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e4e4e2;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.talk-conv-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.talk-conv-avatar-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.talk-conv-avatar-default svg {
+    width: 30px;
+    height: 30px;
+}
+
+.talk-conv-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.talk-conv-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.talk-conv-last {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.talk-conv-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.talk-conv-time {
+    font-size: 11px;
+    color: #bbb;
+}
+
+.talk-conv-badge {
+    min-width: 18px;
+    height: 18px;
+    background: #ff3b30;
+    border-radius: 9px;
+    font-size: 10px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    display: none;
+}
+
+.talk-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #ccc;
+    font-size: 14px;
+    gap: 10px;
+    padding-bottom: 40px;
+}
+
+.talk-empty svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.4;
+}
+
+/* ── 顶栏加号按钮 ── */
+.talk-topbar-add {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1a1a1a;
+    border-radius: 50%;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.talk-topbar-add:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.talk-topbar-add svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ── 创建菜单浮层 ── */
+.talk-fab-menu {
+    position: absolute;
+    inset: 0;
+    z-index: 450;
+    pointer-events: none;
+}
+
+.talk-fab-menu:not(.hidden) {
+    pointer-events: auto;
+}
+
+.talk-fab-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.talk-fab-panel {
+    position: absolute;
+    top: 88px;
+    right: 14px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    min-width: 160px;
+    animation: fabPanelIn 0.18s cubic-bezier(0.34, 1.2, 0.64, 1);
+    transform-origin: top right;
+}
+
+@keyframes fabPanelIn {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.talk-fab-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+    transition: background 0.12s;
+    border-bottom: 1px solid #f2f2f0;
+}
+
+.talk-fab-item:last-child {
+    border-bottom: none;
+}
+
+.talk-fab-item:hover {
+    background: #f8f8f7;
+}
+
+.talk-fab-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #f2f2f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.talk-fab-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #333;
+}
+
+/* ── 浮层页（创建角色 / 群聊）── */
+.talk-sheet {
+    position: absolute;
+    inset: 0;
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    background: #f5f4f2;
+    animation: cuSlideIn 0.28s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+.talk-sheet.hidden {
+    display: none;
+}
+
+.talk-sheet-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 52px 16px 12px;
+    background: rgba(245, 244, 242, 0.95);
+    border-bottom: 1px solid rgba(200, 200, 198, 0.4);
+    flex-shrink: 0;
+}
+
+.talk-sheet-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.talk-sheet-back:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.talk-sheet-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.talk-sheet-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.3px;
+}
+
+.talk-sheet-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 16px 60px;
+    /* ← 底部加到 60px，给保存按钮留出空间 */
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── MiniMax 状态块 ── */
+.char-minimax-status {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f5f4f2;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.char-minimax-status.ok {
+    background: #efffef;
+    color: #2a8a2a;
+}
+
+.char-minimax-status.err {
+    background: #fff3f3;
+    color: #cc3333;
+}
+
+/* ── 语音开关 ── */
+.char-minimax-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.char-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 26px;
+}
+
+.char-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.char-switch-slider {
+    position: absolute;
+    inset: 0;
+    background: #ddd;
+    border-radius: 13px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.char-switch-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.char-switch input:checked+.char-switch-slider {
+    background: #1a1a1a;
+}
+
+.char-switch input:checked+.char-switch-slider::before {
+    transform: translateX(18px);
+}
+
+/* ═══════════════════════════════════════
+   创建角色 — 关联 User 身份选择
+═══════════════════════════════════════ */
+.char-user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.char-user-pick-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 12px;
+    border: 1.5px solid #e5e5e3;
+    background: #f5f4f2;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: inherit;
+    width: 100%;
+    text-align: left;
+}
+
+.char-user-pick-item.selected {
+    border-color: #1a1a1a;
+    background: #fff;
+}
+
+.char-user-pick-av {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e4e4e2;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.char-user-pick-av img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.char-user-pick-av svg {
+    width: 100%;
+    height: 100%;
+}
+
+.char-user-pick-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.char-user-pick-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.char-user-pick-sub {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 1px;
+}
+
+.char-user-pick-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #ddd;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.char-user-pick-item.selected .char-user-pick-check {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.char-user-pick-check::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg) translate(-1px, -1px);
+    display: none;
+}
+
+.char-user-pick-item.selected .char-user-pick-check::after {
+    display: block;
+}
+
+.char-user-pick-empty {
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    padding: 12px 0;
+}
+
+/* ═══════════════════════════════════════
+   聊天对话页 (tcp = talk-conv-page)
+   参考p1：深底色背景，浅灰气泡区，黑白气泡
+═══════════════════════════════════════ */
+.talk-conv-page {
+    position: absolute;
+    inset: 0;
+    z-index: 520;
+    display: flex;
+    flex-direction: column;
+    background: #ebebeb;
+    animation: cuSlideIn 0.28s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+
+.talk-conv-page.hidden {
+    display: none;
+}
+
+/* ── 顶栏（深色，p1风格） ── */
+.tcp-topbar {
+    display: flex;
+    align-items: center;
+    padding: 52px 14px 12px;
+    background: #1a1a1a;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+.tcp-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50%;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.tcp-back:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tcp-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 名称区（无头像） */
+.tcp-identity {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    min-width: 0;
+}
+
+.tcp-avatars {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.tcp-av,
+.tcp-av-char,
+.tcp-av-user,
+.tcp-av-ph,
+.tcp-av-img {
+    display: none !important;
+}
+
+.tcp-name-wrap {
+    min-width: 0;
+}
+
+.tcp-char-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+}
+
+.tcp-char-loc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tcp-settings {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50%;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.tcp-settings:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tcp-settings svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ── 消息区（浅灰底） ── */
+.tcp-messages {
+    position: relative;
+    /* ← 新增：让菜单绝对定位的基准 */
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #ebebeb;
+}
+
+/* 气泡通用 */
+.tcp-bubble-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    max-width: 78%;
+}
+
+/* User（右侧） */
+.tcp-bubble-wrap.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* Char（左侧）连续多条间距收紧 */
+.tcp-bubble-wrap.char+.tcp-bubble-wrap.char {
+    margin-top: -2px;
+}
+
+.tcp-bubble {
+    padding: 7px 11px;
+    border-radius: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* User气泡：黑底白字 */
+.tcp-bubble-wrap.user .tcp-bubble {
+    background: #1a1a1a;
+    color: #fff;
+    border-bottom-right-radius: 6px;
+}
+
+/* Char气泡：白底黑字 */
+.tcp-bubble-wrap.char .tcp-bubble {
+    background: #fff;
+    color: #1a1a1a;
+    border-bottom-left-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 气泡左侧头像（方形，与列表头像统一） */
+.tcp-bubble-av {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #e4e4e2;
+    flex-shrink: 0;
+    align-self: flex-end;
+}
+
+.tcp-bubble-av img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 时间戳（仅第一/最后条显示，正常隐藏） */
+.tcp-bubble-time {
+    font-size: 10px;
+    color: #aaa;
+    margin: 0 4px 2px;
+    flex-shrink: 0;
+    align-self: flex-end;
+    white-space: nowrap;
+}
+
+/* char 连续气泡：中间条不显示头像和时间 */
+.tcp-bubble-wrap.char.tcp-no-av .tcp-bubble-av {
+    visibility: hidden;
+}
+
+/* ── 思考中 loading 气泡 ── */
+.tcp-typing-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    max-width: 78%;
+    align-self: flex-start;
+}
+
+.tcp-typing-bubble {
+    background: #fff;
+    border-radius: 22px;
+    border-bottom-left-radius: 6px;
+    padding: 12px 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tcp-typing-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #bbb;
+    animation: tcpDotPulse 1.2s infinite ease-in-out;
+}
+
+.tcp-typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.tcp-typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes tcpDotPulse {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.7);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ── 底栏（参考p1：胶囊输入框+左圆圈加号+右发送） ── */
+.tcp-bottom {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 1px solid rgba(200, 200, 198, 0.3);
+    flex-shrink: 0;
+}
+
+.tcp-tool-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1.5px solid #ccc;
+    cursor: pointer;
+    color: #555;
+    border-radius: 50%;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+}
+
+.tcp-tool-btn:hover {
+    background: #f5f4f2;
+    border-color: #aaa;
+}
+
+.tcp-tool-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* 输入框容器（大胶囊） */
+.tcp-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    background: #f2f2f0;
+    border-radius: 24px;
+    border: none;
+    padding: 8px 8px 8px 16px;
+    gap: 4px;
+    min-height: 42px;
+}
+
+.tcp-input-wrap:focus-within {
+    background: #eeeeed;
+}
+
+.tcp-input {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 15px;
+    color: #1a1a1a;
+    font-family: inherit;
+    resize: none;
+    line-height: 1.5;
+    max-height: 100px;
+    overflow-y: auto;
+    padding: 2px 0;
+    scrollbar-width: none;
+}
+
+.tcp-input::-webkit-scrollbar {
+    display: none;
+}
+
+.tcp-input::placeholder {
+    color: #bbb;
+}
+
+/* 表情/续写 小按钮 */
+.tcp-input-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    border-radius: 50%;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+}
+
+.tcp-input-btn:hover {
+    color: #444;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.tcp-input-btn svg {
+    width: 21px;
+    height: 21px;
+}
+
+/* 续写按钮：有内容时高亮 */
+.tcp-input-btn.tcp-continue-btn {
+    color: #bbb;
+    transition: color 0.15s, background 0.15s;
+}
+
+.tcp-input-btn.tcp-continue-btn.active {
+    color: #1a1a1a;
+}
+
+/* 发送键（黑色圆形纸飞机） */
+.tcp-send-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50%;
+    transition: background 0.15s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+.tcp-send-btn:hover {
+    background: #333;
+}
+
+.tcp-send-btn:active {
+    transform: scale(0.93);
+}
+
+.tcp-send-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ═══════════════════════════════════════
+   对话面板 — chat-panel 纵向滚动容器
+═══════════════════════════════════════ */
+#chatPanel-talk {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f0efed;
+    gap: 8px;
+    padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ═══════════════════════════════════════
+   三块悬浮卡片公共基础
+═══════════════════════════════════════ */
+.talk-group-bar,
+.talk-list {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   卡片① — WeChat 风用户卡片（顶部大卡）
+═══════════════════════════════════════ */
+/* 卡片①-A：顶部信息行（左图+右文字），独立悬浮 */
+.talk-user-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: default;
+    /* 不包含4图框，4图框是独立的 .tuc-photos-card */
+}
+
+/* 卡片①-B：4张拍立得照片，横排独立悬浮 */
+.tuc-photos-card {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-shrink: 0;
+    background: transparent;
+    padding: 0;
+}
+
+/* 上半区：大横幅图（左）+ 右侧信息（右） */
+.tuc-top-row {
+    display: flex;
+    gap: 0;
+    height: 88px;
+}
+
+/* 左侧大图 */
+.tuc-banner-box {
+    width: 100px;
+    height: 88px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    background: #e4e4e2;
+    cursor: pointer;
+}
+
+.tuc-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tuc-banner-ph {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    color: #bbb;
+    font-size: 11px;
+}
+
+.tuc-banner-ph svg {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+
+.tuc-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tuc-banner-box:hover .tuc-banner-overlay,
+.tuc-banner-box:active .tuc-banner-overlay {
+    background: rgba(0, 0, 0, 0.22);
+}
+
+.tuc-banner-tip {
+    color: #fff;
+    font-size: 11px;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 3px 10px;
+    border-radius: 20px;
+    transition: opacity 0.18s;
+}
+
+.tuc-banner-box:hover .tuc-banner-tip,
+.tuc-banner-box:active .tuc-banner-tip {
+    opacity: 1;
+}
+
+/* 右侧信息区 */
+.tuc-info-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 14px;
+    gap: 5px;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.tuc-info-box:hover,
+.tuc-info-box:active {
+    background: #fafaf8;
+}
+
+.tuc-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+}
+
+.tuc-bio {
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+}
+
+/* 右侧可编辑标语（WeChat风 4 Photos Selected 标题） */
+.tuc-motto {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+    outline: none;
+    cursor: text;
+    border-bottom: 1.5px dashed transparent;
+    transition: border-color 0.15s;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tuc-motto:focus {
+    border-bottom-color: #aaa;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+
+.tuc-motto:empty::before {
+    content: attr(data-placeholder);
+    color: #ccc;
+    font-weight: 400;
+}
+
+.tuc-motto-sub {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 下半区：4张相册图片（此行保留但不再使用，实际布局由tuc-photos-card控制） */
+.tuc-photos-row {
+    display: contents;
+}
+
+/* 拍立得照片卡片：独立白色小卡，竖向比例，有白色内边距 */
+.tuc-photo-cell {
+    position: relative;
+    flex: 1;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    /* 拍立得：上部图片+下部白边 */
+    padding-bottom: 14px;
+    aspect-ratio: 3 / 4;
+}
+
+/* 图片占满除下白边外的区域 */
+.tuc-photo-cell img {
+    width: 100%;
+    flex: 1;
+    object-fit: cover;
+    display: block;
+    min-height: 0;
+}
+
+/* 空状态占位图（拍立得内部） */
+.tuc-photo-ph {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ebebea;
+    min-height: 0;
+}
+
+.tuc-photo-ph svg {
+    width: 18px;
+    height: 18px;
+    color: #ccc;
+}
+
+.tuc-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.15s;
+}
+
+.tuc-photo-cell:hover .tuc-photo-overlay,
+.tuc-photo-cell:active .tuc-photo-overlay {
+    background: rgba(0, 0, 0, 0.18);
+}
+
+/* LIVE 标签（左上角） */
+.tuc-live-tag {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: rgba(0, 122, 255, 0.85);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    z-index: 2;
+    display: none;
+    align-items: center;
+    gap: 2px;
+}
+
+.tuc-live-tag.live-on {
+    display: flex;
+}
+
+/* 勾选角标（右下角） */
+.tuc-photo-check {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #007aff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.tuc-photo-cell.has-img .tuc-photo-check {
+    opacity: 1;
+}
+
+.tuc-photo-check svg {
+    width: 10px;
+    height: 10px;
+    color: #fff;
+}
+
+/* 旧结构兼容（保留 tuc-avatar-wrap 以防 JS 仍引用） */
+.tuc-avatar-wrap {
+    display: none;
+}
+
+.tuc-avatar {
+    display: none;
+}
+
+.tuc-avatar-ph {
+    display: none;
+}
+
+.tuc-avatar-img {
+    display: none;
+}
+
+.tuc-arrow {
+    display: none;
+}
+
+/* ═══════════════════════════════════════
+   卡片② — 分组胶囊栏（独立悬浮，原来胶囊风格）
+═══════════════════════════════════════ */
+.talk-group-bar {
+    /* 继承公共悬浮卡片样式 */
+}
+
+.talk-group-scroll {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 8px 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.talk-group-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* 胶囊风格（恢复原来大小） */
+.talk-group-pill {
+    flex-shrink: 0;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    background: #f0efed;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.talk-group-pill.talk-group-active {
+    background: #1a1a1a;
+    color: #fff;
+    font-weight: 600;
+}
+
+.talk-group-pill:hover:not(.talk-group-active) {
+    background: #e8e7e5;
+    color: #555;
+}
+
+/* 加号按钮（细虚线圆） */
+.talk-group-add {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1.5px dashed #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #bbb;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.talk-group-add:hover {
+    border-color: #999;
+    color: #666;
+}
+
+.talk-group-add svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* ═══════════════════════════════════════
+   卡片③ — 会话列表（独立悬浮卡片）
+═══════════════════════════════════════ */
+.talk-list {
+    /* 内容自然撑开，不裁剪子卡片圆角 */
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 会话条目 */
+.talk-conv-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.12s;
+    border-bottom: 1px solid rgba(200, 200, 198, 0.18);
+}
+
+.talk-conv-item:last-child {
+    border-bottom: none;
+}
+
+.talk-conv-item:active {
+    background: #f5f4f2;
+}
+
+/* 方形头像（微信风）— !important 防止旧样式覆盖 */
+.talk-conv-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px !important;
+    overflow: hidden;
+    background: #e4e4e2;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 同时覆盖任何可能给列表头像设置圆形的旧样式 */
+.talk-conv-avatar img,
+.talk-conv-avatar svg {
+    border-radius: 0 !important;
+}
+
+.talk-conv-avatar img,
+.talk-conv-avatar-default {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.talk-conv-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.talk-conv-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.talk-conv-last {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.talk-conv-meta {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.talk-conv-time {
+    font-size: 11px;
+    color: #bbb;
+}
+
+/* 空状态 */
+.talk-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px 20px;
+    color: #bbb;
+    font-size: 13px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.talk-empty svg {
+    width: 32px;
+    height: 32px;
+    color: #ddd;
+}
+
+/* ── 会话分组卡片（2-3-2-3…，每组独立圆角悬浮） ── */
+.talk-conv-group {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+/* 组内条目分隔线，最后一条不显示 */
+.talk-conv-group .talk-conv-item {
+    border-bottom: 1px solid rgba(200, 200, 198, 0.18);
+}
+
+.talk-conv-group .talk-conv-item:last-child {
+    border-bottom: none;
+}
+
+/* 圆形头像 */
+.talk-conv-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e4e4e2;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.talk-conv-avatar img,
+.talk-conv-avatar-default {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.talk-conv-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.talk-conv-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.talk-conv-last {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.talk-conv-meta {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.talk-conv-time {
+    font-size: 12px;
+    color: #bbb;
+}
+
+/* 空状态 */
+.talk-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.talk-empty svg {
+    width: 36px;
+    height: 36px;
+    color: #ddd;
+}
+
+/* ═══════════════════════════════════════
+   聊天对话页 — 完整覆盖（参考图2 WeChat风）
+═══════════════════════════════════════ */
+
+/* ── 顶栏：纯黑底，左下拉箭头+中间名称副标题+右两点菜单 ── */
+/* 顶栏：白底，左[返回+名字+头像交叠]区，右设置键，缩小10px高度 */
+.tcp-topbar {
+    padding: 50px 14px 2px;
+    background: rgba(245, 244, 242, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200, 200, 198, 0.35);
+    gap: 8px;
+    align-items: center;
+}
+
+/* 返回键：改为向下的 V 形箭头（WeChat风下拉） */
+/* 返回键：纯线条向左箭头，黑色 */
+.tcp-back {
+    color: #1a1a1a;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.tcp-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 顶栏中央身份区（无头像，纯文字，左对齐） */
+/* 身份区：flex:1 占满，纵向排列：上方名字，下方双头像交叠 */
+.tcp-identity {
+    flex: 1;
+    gap: 2px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 0;
+    min-width: 0;
+}
+
+/* 双头像容器：隐藏不占空间 */
+/* 双头像交叠容器：在名字下方显示 */
+.tcp-avatars {
+    display: flex;
+    position: relative;
+    width: 44px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+/* 头像框通用：方形圆角，带白色边框 */
+.tcp-av {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1.5px solid #fff;
+    background: #e4e4e2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* char头像：左侧，z层高 */
+.tcp-av-char {
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+/* user头像：右移8px，z层低（半叠在char后面） */
+.tcp-av-user {
+    left: 14px;
+    top: 0;
+    z-index: 1;
+}
+
+.tcp-av svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tcp-av-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* char 名字（白色，加粗，WeChat风） */
+.tcp-char-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 地区副标题（白色半透明小字） */
+.tcp-char-loc {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 0;
+}
+
+/* 右侧设置键：黑色线条风 */
+.tcp-settings {
+    color: #1a1a1a;
+    width: 32px;
+    height: 32px;
+    padding-bottom: 0;
+    flex-shrink: 0;
+}
+
+.tcp-settings svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ── 消息区：浅灰背景，与图2一致 ── */
+.tcp-messages {
+    position: relative;
+    /* ← 新增 */
+    background: #e8e8e8;
+    padding: 14px 12px 10px;
+    gap: 6px;
+}
+
+/* ── char 气泡：左对齐，左侧方形头像 ── */
+.tcp-bubble-wrap.char {
+    align-self: flex-start;
+    flex-direction: row;
+    align-items: flex-end;
+    max-width: 82%;
+    gap: 8px;
+}
+
+/* ── user 气泡：右对齐，右侧方形头像 ── */
+.tcp-bubble-wrap.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    max-width: 82%;
+    gap: 8px;
+}
+
+/* 气泡本体（WeChat风大圆角） */
+.tcp-bubble {
+    border-radius: 16px;
+    padding: 7px 11px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* user 气泡：纯白底黑字（图2右侧白气泡） */
+.tcp-bubble-wrap.user .tcp-bubble {
+    background: #ffffff;
+    color: #1a1a1a;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* char 气泡：纯黑底白字（图2左侧黑气泡） */
+.tcp-bubble-wrap.char .tcp-bubble {
+    background: #1a1a1a;
+    color: #fff;
+    border-bottom-left-radius: 4px;
+    box-shadow: none;
+}
+
+/* 气泡旁边的头像（方形，圆角8px） */
+.tcp-bubble-av {
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #d0d0d0;
+    flex-shrink: 0;
+    align-self: flex-start;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tcp-bubble-av img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 时间戳（气泡外侧小字，图2风格：气泡右下方） */
+.tcp-bubble-time {
+    font-size: 10px;
+    color: #aaa;
+    align-self: flex-end;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* char 连续气泡：中间条头像占位（隐藏但占空间保持对齐） */
+.tcp-bubble-wrap.char.tcp-no-av .tcp-bubble-av {
+    visibility: hidden;
+}
+
+/* ── char 名字标签（气泡上方显示，图2有"Lovethetime·⊙"） ── */
+.tcp-bubble-name {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 3px;
+    padding-left: 2px;
+    white-space: nowrap;
+}
+
+/* 底栏：上下各缩小5px */
+.tcp-bottom {
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 5px 14px calc(7px + env(safe-area-inset-bottom));
+    gap: 10px;
+    align-items: flex-end;
+}
+
+/* 工具键：纯线条风，无边框圆圈，同表情/续写键风格 */
+.tcp-tool-btn {
+    color: #555;
+    border: none;
+    border-radius: 0;
+    width: 30px;
+    height: 30px;
+    background: none;
+}
+
+.tcp-tool-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* 输入框：上下高度缩小3px */
+.tcp-input-wrap {
+    background: #f2f2f2;
+    border: none;
+    border-radius: 24px;
+    padding: 5px 6px 5px 14px;
+    min-height: 36px;
+    gap: 6px;
+}
+
+.tcp-input-wrap:focus-within {
+    background: #ececec;
+    border: none;
+}
+
+.tcp-input {
+    font-size: 15px;
+    color: #1a1a1a;
+}
+
+/* 表情/续写按钮 */
+.tcp-input-btn {
+    color: #888;
+    width: 30px;
+    height: 30px;
+}
+
+.tcp-input-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 发送键：纯线条风，去掉黑色实心圆，与表情/续写同风格 */
+.tcp-send-btn {
+    width: 30px;
+    height: 30px;
+    background: none;
+    border-radius: 0;
+    flex-shrink: 0;
+    color: #1a1a1a;
+}
+
+.tcp-send-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* 名字+小黑圆点同行容器 */
+.tcp-char-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 小黑实心圆圈（状态点） */
+.tcp-char-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════
+   气泡横排菜单
+══════════════════════════════════════ */
+.tcp-bubble-menu {
+    position: absolute;
+    /* ← 脱离文档流，不再挤进flex行 */
+    z-index: 9999;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    background: #1a1a1a;
+    border-radius: 14px;
+    padding: 6px 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    width: fit-content;
+    max-width: calc(100% - 8px);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    pointer-events: auto;
+    animation: tcpMenuPop 0.15s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes tcpMenuPop {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tcp-bmenu-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.12s;
+    flex-shrink: 0;
+}
+
+.tcp-bmenu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tcp-bmenu-icon {
+    font-size: 14px;
+    color: #fff;
+    line-height: 1;
+}
+
+.tcp-bmenu-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+}
+
+/* ══════════════════════════════════════
+   撤回通知行
+══════════════════════════════════════ */
+.tcp-recall-notice {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    padding: 4px 0;
+    margin: 2px 0;
+}
+
+/* ══════════════════════════════════════
+   气泡内引用块
+══════════════════════════════════════ */
+.tcp-quote-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.tcp-bubble-wrap.user .tcp-quote-block {
+    background: rgba(255, 255, 255, 0.12);
+    border-left-color: rgba(255, 255, 255, 0.4);
+}
+
+.tcp-quote-sender {
+    font-weight: 600;
+    color: inherit;
+    opacity: 0.7;
+}
+
+.tcp-quote-text {
+    opacity: 0.6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ══════════════════════════════════════
+   引用预览条（输入框上方）
+══════════════════════════════════════ */
+.tcp-quote-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(26, 26, 26, 0.06);
+    border-left: 3px solid #1a1a1a;
+    padding: 6px 10px 6px 12px;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.tcp-quote-bar-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.tcp-quote-bar-sender {
+    font-weight: 600;
+    color: #333;
+}
+
+.tcp-quote-bar-text {
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tcp-quote-bar-close {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 4px;
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════
+   收藏闪光反馈
+══════════════════════════════════════ */
+.tcp-bubble.tcp-bubble-faved {
+    outline: 2px solid #f5c518;
+    outline-offset: 2px;
+    transition: outline 0.2s;
+}
+
+/* ══════════════════════════════════════
+   多选模式
+══════════════════════════════════════ */
+.tcp-multisel-chk {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    background: #fff;
+    flex-shrink: 0;
+    align-self: center;
+    margin: 0 6px;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.tcp-messages.tcp-multisel-mode .tcp-multisel-chk {
+    display: block;
+}
+
+.tcp-bubble-wrap.tcp-multisel-on .tcp-multisel-chk {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.tcp-bubble-wrap.tcp-multisel-on .tcp-multisel-chk::after {
+    content: '✓';
+    display: block;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.tcp-multibar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #f8f8f8;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 13px;
+}
+
+.tcp-multibar-cancel,
+.tcp-multibar-del {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.tcp-multibar-cancel {
+    color: #666;
+}
+
+.tcp-multibar-del {
+    color: #e33;
+    font-weight: 600;
+}
+
+.tcp-multibar-count {
+    color: #333;
+}
+
+/* ══════════════════════════════════════
+   个人主页 · 收藏页
+══════════════════════════════════════ */
+.cp-fav-page {
+    position: absolute;
+    inset: 0;
+    background: #f5f4f2;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cp-fav-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 52px 16px 12px;
+    background: rgba(245, 244, 242, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+.cp-fav-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-fav-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cp-fav-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.cp-fav-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cp-fav-empty {
+    text-align: center;
+    color: #bbb;
+    font-size: 14px;
+    margin-top: 60px;
+}
+
+.cp-fav-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cp-fav-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.cp-fav-char {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.cp-fav-role {
+    font-size: 11px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 6px;
+}
+
+.cp-fav-time {
+    font-size: 11px;
+    color: #bbb;
+    margin-left: auto;
+}
+
+.cp-fav-del {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0 2px;
+}
+
+.cp-fav-del:hover {
+    color: #e33;
+}
+
+.cp-fav-text {
+    font-size: 14px;
+    color: #1a1a1a;
+    line-height: 1.55;
+}
+
+/* 顶栏标题左对齐时，原居中 title 不再需要绝对居中 */
+.chat-topbar-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.2px;
+}
+
+/* 菜单项英文 ins 风副标题 */
+.cp-menu-en {
+    font-size: 11px;
+    font-weight: 400;
+    color: #aaa;
+    letter-spacing: 0.3px;
+    font-style: italic;
+}
+
+/* ══════════════════════════════════════════
+   悬浮底栏
+══════════════════════════════════════════ */
+.tcp-bottom-float {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: #fff;
+    border-radius: 28px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 6px 10px 6px 14px;
+    z-index: 10;
+}
+
+/* 消息区底部留出悬浮底栏的高度，避免被遮挡 */
+.tcp-messages {
+    padding-bottom: 80px !important;
+}
+
+/* ═══════════════════════════════════════════
+   聊天设置面板
+═══════════════════════════════════════════ */
+
+.tcp-settings-panel {
+    position: absolute;
+    inset: 0;
+    z-index: 530;
+    background: #f2f1ef;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(.4, 0, .2, 1);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.tcp-settings-panel.open {
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* ── 顶栏 ── */
+.tcsp-topbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 52px 16px 14px;
+    background: rgba(242, 241, 239, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200, 200, 198, 0.35);
+    flex-shrink: 0;
+}
+
+.tcsp-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.tcsp-back:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.tcsp-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.tcsp-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.3px;
+}
+
+/* ── 滚动区 ── */
+.tcsp-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ════════════════════════════
+   头像区 — 拍立得风格，正方形圆角交叠
+════════════════════════════ */
+.tcsp-section {
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 8px;
+}
+
+.tcsp-section .tcsp-row:first-child {
+    border-radius: 14px 14px 0 0;
+}
+
+.tcsp-section .tcsp-row:last-child {
+    border-radius: 0 0 14px 14px;
+}
+
+.tcsp-avatar-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 0 28px;
+}
+
+.tcsp-avatar-overlap {
+    position: relative;
+    width: 118px;
+    height: 88px;
+}
+
+/* 拍立得底框 */
+.tcsp-av {
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    border-radius: 15px;
+    /* 正方形圆角 */
+    border: 3.5px solid #fff;
+    overflow: hidden;
+    cursor: pointer;
+    background: #e8e7e5;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.16), 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.tcsp-av:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.tcsp-av:hover .tcsp-av-edit {
+    opacity: 1;
+}
+
+/* 角色头像 — 左下，向左倾斜 */
+.tcsp-av-char {
+    left: 0;
+    top: 10px;
+    z-index: 1;
+    transform: rotate(-5deg);
+}
+
+.tcsp-av-char:hover {
+    transform: rotate(-7deg) scale(1.05);
+}
+
+/* 用户头像 — 右上，向右倾斜 */
+.tcsp-av-user {
+    left: 40px;
+    top: 0;
+    z-index: 2;
+    transform: rotate(4deg);
+}
+
+.tcsp-av-user:hover {
+    transform: rotate(6deg) scale(1.05);
+}
+
+.tcsp-av-ph {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4e3e1;
+}
+
+.tcsp-av-ph svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tcsp-av-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tcsp-av-edit {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.36);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    border-radius: 11px;
+}
+
+/* ════════════════════════════
+   分组标签
+════════════════════════════ */
+.tcsp-group-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #aaa;
+    letter-spacing: 0.8px;
+    padding: 18px 4px 8px;
+    margin: 0;
+}
+
+.tcsp-group-danger {
+    color: #e05555;
+}
+
+/* ════════════════════════════
+   行通用 — 在 .tcsp-section 卡片内
+════════════════════════════ */
+.tcsp-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 52px;
+    padding: 10px 16px;
+    background: transparent;
+    border-bottom: 1px solid rgba(200, 200, 198, 0.25);
+    transition: background 0.12s;
+}
+
+.tcsp-row:last-child {
+    border-bottom: none;
+}
+
+.tcsp-row-col {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.tcsp-row-arrow {
+    cursor: pointer;
+}
+
+.tcsp-row-arrow:hover {
+    background: rgba(0, 0, 0, 0.035);
+}
+
+.tcsp-row-danger {
+    cursor: pointer;
+}
+
+.tcsp-row-danger .tcsp-row-label {
+    color: #e05555;
+    font-weight: 500;
+}
+
+.tcsp-row-danger:hover {
+    background: #fff5f5;
+}
+
+.tcsp-row-label {
+    font-size: 15px;
+    color: #1a1a1a;
+    flex: 1;
+    line-height: 1.4;
+}
+
+.tcsp-arrow {
+    width: 17px;
+    height: 17px;
+    color: #c8c8c6;
+    flex-shrink: 0;
+}
+
+/* ── 输入框 ── */
+.tcsp-row-input {
+    background: #f2f1ef;
+    border: 1px solid #e4e3e1;
+    border-radius: 9px;
+    padding: 7px 11px;
+    font-size: 14px;
+    color: #333;
+    width: 52%;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.tcsp-row-input:focus {
+    border-color: #bbb;
+}
+
+/* ── 下拉框 ── */
+.tcsp-row-select {
+    background: #f2f1ef;
+    border: 1px solid #e4e3e1;
+    border-radius: 9px;
+    padding: 7px 10px;
+    font-size: 13px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    max-width: 52%;
+    transition: border-color 0.15s;
+}
+
+.tcsp-row-select:focus {
+    border-color: #bbb;
+}
+
+.tcsp-loc-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.tcsp-loc-sel {
+    flex: 1;
+    max-width: 50%;
+}
+
+/* ── Toggle 开关 ── */
+.tcsp-toggle {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.tcsp-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.tcsp-toggle-track {
+    width: 44px;
+    height: 26px;
+    background: #d8d7d5;
+    border-radius: 13px;
+    position: relative;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    padding: 0 3px;
+}
+
+.tcsp-toggle input:checked+.tcsp-toggle-track {
+    background: #1a1a1a;
+}
+
+.tcsp-toggle-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+.tcsp-toggle input:checked+.tcsp-toggle-track .tcsp-toggle-thumb {
+    transform: translateX(18px);
+}
