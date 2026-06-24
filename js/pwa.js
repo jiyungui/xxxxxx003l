@@ -1,5 +1,40 @@
 var PWAController = (function () {
   var deferredPrompt = null;
+  var resizeTimer = null;
+
+  /*
+    修复安装到主屏幕后：
+    1. 100vh / 100dvh 高度不准
+    2. 底部出现一截空白
+    3. Dock 被 safe-bottom 顶得过高
+  */
+  function updateAppViewport() {
+    var height = window.innerHeight || document.documentElement.clientHeight;
+
+    if (!height) return;
+
+    document.documentElement.style.setProperty("--app-height", height + "px");
+  }
+
+  function bindViewportFix() {
+    updateAppViewport();
+
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateAppViewport, 80);
+    });
+
+    window.addEventListener("orientationchange", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateAppViewport, 250);
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) {
+        updateAppViewport();
+      }
+    });
+  }
 
   function registerServiceWorker() {
     if (!("serviceWorker" in navigator)) return;
@@ -31,6 +66,7 @@ var PWAController = (function () {
   }
 
   function init() {
+    bindViewportFix();
     registerServiceWorker();
     listenInstallPrompt();
   }
@@ -38,6 +74,7 @@ var PWAController = (function () {
   return {
     init: init,
     install: install,
+    updateAppViewport: updateAppViewport,
   };
 })();
 

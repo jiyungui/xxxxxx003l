@@ -564,3 +564,7 @@
   background: rgba(255, 174, 86, 0.13), rgba(0, 0, 0, 0.24);
   mix-blend-mode: multiply;
 }
+
+.top-widget:not(.is-clock-widget) .clock-widget-view {
+  display: none !important;
+}

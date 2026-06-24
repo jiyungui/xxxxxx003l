@@ -1614,8 +1614,21 @@ var SettingsController = (function () {
       startClockWidgetTimer();
       updateClockWidget(config);
     } else {
+      /*
+      切换回头像资料小组件时：
+      1. 移除 clock 样式
+      2. 停止时间计时器
+      3. 删除时间小组件 DOM
+
+      这样两个小组件完全独立，不会把时间、地址、天气、日期残留在头像卡片里。
+    */
       topWidget.classList.remove("is-clock-widget");
       stopClockWidgetTimer();
+
+      var clockView = topWidget.querySelector(".clock-widget-view");
+      if (clockView) {
+        clockView.remove();
+      }
     }
   }
 

@@ -15,10 +15,10 @@
   padding-top: calc(var(--safe-top) + 112px);
 
   /*
-    底部距离：
-    safe-bottom + dock高度 + 间距
+    底部只给 Dock 留空间。
+    不再额外叠加 safe-bottom，避免安装到主屏后整体被顶上去。
   */
-  padding-bottom: calc(var(--safe-bottom) + 116px);
+  padding-bottom: 112px;
 
   overflow: hidden;
   display: flex;
@@ -92,7 +92,7 @@
 .dock {
   position: absolute;
   left: 50%;
-  bottom: calc(18px + var(--safe-bottom));
+  bottom: var(--dock-bottom);
   width: calc(
     100% - (var(--side-padding) * 2) - var(--safe-left) - var(--safe-right)
   );
@@ -142,9 +142,13 @@
 
 /* 短屏手机，例如 iPhone SE / 部分小安卓 */
 @media (max-height: 740px) {
+  .home-content {
+    padding-bottom: 96px;
+  }
+
   .dock {
     min-height: 72px;
-    bottom: calc(12px + var(--safe-bottom));
+    bottom: max(8px, calc(var(--safe-bottom) - 20px));
     padding-top: 6px;
     padding-bottom: 4px;
   }
