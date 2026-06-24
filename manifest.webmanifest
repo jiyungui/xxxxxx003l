@@ -1,0 +1,20 @@
+{
+  "name": "星星机",
+  "short_name": "星星机",
+  "description": "一个韩式 ins 风手机端模拟器主屏幕。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#dfdfdd",
+  "theme_color": "#dfdfdd",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

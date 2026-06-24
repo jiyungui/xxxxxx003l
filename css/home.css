@@ -1,0 +1,191 @@
+.home-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--content-max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding-left: calc(var(--side-padding) + var(--safe-left));
+  padding-right: calc(var(--side-padding) + var(--safe-right));
+
+  /*
+    顶部距离：
+    safe-top + 状态栏 + 灵动岛区域
+  */
+  padding-top: calc(var(--safe-top) + 112px);
+
+  /*
+    底部距离：
+    safe-bottom + dock高度 + 间距
+  */
+  padding-bottom: calc(var(--safe-bottom) + 116px);
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-grid {
+  margin-top: clamp(18px, 3.2vh, 28px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: clamp(14px, 2.2vh, 22px);
+  column-gap: clamp(14px, 5vw, 24px);
+  justify-items: center;
+  flex: 1;
+  align-content: start;
+}
+
+.app-button {
+  width: 72px;
+  min-height: 76px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.app-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 14px 32px rgba(40, 40, 40, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+    inset 0 -8px 18px rgba(0, 0, 0, 0.035);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.app-icon svg {
+  width: 25px;
+  height: 25px;
+  stroke: #2e2e2e;
+  stroke-width: 1.65;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.app-name {
+  max-width: 80px;
+  text-align: center;
+  color: #3f3f3f;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dock .app-button {
+  width: 72px;
+  min-height: 76px;
+  gap: 5px;
+}
+
+.dock {
+  position: absolute;
+  left: 50%;
+  bottom: calc(18px + var(--safe-bottom));
+  width: calc(
+    100% - (var(--side-padding) * 2) - var(--safe-left) - var(--safe-right)
+  );
+  max-width: calc(var(--content-max-width) - (var(--side-padding) * 2));
+  min-height: 82px;
+  border-radius: 28px;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+
+  padding: 8px 18px 6px;
+
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 20px 50px rgba(40, 40, 40, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.035);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.dock .app-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.44);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 14px 34px rgba(35, 35, 35, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+    inset 0 -8px 18px rgba(0, 0, 0, 0.04);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dock .app-name {
+  font-size: 10px;
+}
+
+/* 短屏手机，例如 iPhone SE / 部分小安卓 */
+@media (max-height: 740px) {
+  .dock {
+    min-height: 72px;
+    bottom: calc(12px + var(--safe-bottom));
+    padding-top: 6px;
+    padding-bottom: 4px;
+  }
+
+  .dock .app-button {
+    min-height: 66px;
+  }
+
+  .dock .app-icon {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* 超长屏手机，例如 Pixel 7 / 小米长屏 / Galaxy */
+@media (min-height: 850px) {
+  .home-content {
+    padding-top: calc(var(--safe-top) + 118px);
+  }
+
+  .app-grid {
+    row-gap: clamp(18px, 2.4vh, 26px);
+  }
+}
+
+/* 很窄的手机 */
+@media (max-width: 360px) {
+  :root {
+    --side-padding: 18px;
+  }
+
+  .app-button {
+    width: 64px;
+  }
+
+  .app-name {
+    font-size: 10px;
+  }
+
+  .dock {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
