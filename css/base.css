@@ -4,17 +4,8 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
 
-  /*
-    真实可视高度。
-    JS 会写入这个值，解决安装到主屏幕后 100vh / 100dvh 不稳定的问题。
-  */
-  --app-height: 100dvh;
-
-  /*
-    Dock 不要直接用 safe-bottom + 18px。
-    否则安装到主屏后会被顶得很高。
-  */
-  --dock-bottom: max(10px, calc(var(--safe-bottom) - 18px));
+  --app-height: 100%;
+  --dock-bottom: 8px;
 
   --screen-bg: #dfdfdd;
   --text-main: #222;
@@ -40,8 +31,8 @@ html {
 
 body {
   width: 100%;
-  height: var(--app-height);
-  min-height: var(--app-height);
+  height: 100%;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
   background: var(--screen-bg);
@@ -70,17 +61,18 @@ button {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: var(--app-height);
-  min-height: var(--app-height);
+  height: auto;
+  min-height: 0;
   overflow: hidden;
   background: var(--screen-bg);
 }
 
 .phone-screen {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 100%;
-  min-height: 100%;
+  height: auto;
+  min-height: 0;
   overflow: hidden;
   background:
     radial-gradient(

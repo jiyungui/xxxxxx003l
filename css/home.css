@@ -148,7 +148,7 @@
 
   .dock {
     min-height: 72px;
-    bottom: max(8px, calc(var(--safe-bottom) - 20px));
+    bottom: 8px;
     padding-top: 6px;
     padding-bottom: 4px;
   }

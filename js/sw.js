@@ -1,4 +1,4 @@
-const CACHE_NAME = "star-phone-cache-v12";
+const CACHE_NAME = "star-phone-cache-v13";
 
 const ASSETS = [
   "./",
