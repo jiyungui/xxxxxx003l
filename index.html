@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>AA机</title>
+
+  <!-- Web App / PWA 全屏沉浸配置 -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#F8F9FA" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AA机" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- 样式加载 -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/phone-layout.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+</head>
+<body>
+
+  <!-- 手机外壳容器 (在移动端/保存到桌面独立运行自动变全屏无外壳) -->
+  <main class="phone-wrapper">
+    
+    <!-- 顶部状态栏 -->
+    <header class="phone-statusbar">
+      <span class="statusbar-time" id="statusbar-time">09:41</span>
+      
+      <!-- 动态岛 / 灵动胶囊 (仅在 PC 仿真外壳时显示，移动端自动隐藏) -->
+      <div class="statusbar-notch">
+        <div class="camera-lens"></div>
+        <div class="sensor-light"></div>
+      </div>
+
+      <div class="statusbar-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><rect x="4" y="9" width="11" height="6" fill="currentColor"/></svg>
+      </div>
+    </header>
+
+    <!-- 手机主视口 (包含左侧侧边栏 + 右侧主内容区) -->
+    <section class="phone-viewport">
+      
+      <!-- 1. 左侧常驻极简 DOCK 栏 (Side Rail) -->
+      <aside class="side-dock-rail" id="side-dock-rail">
+        <!-- 抽屉菜单开关按钮 (P1 顶部三道杠汉堡按钮) -->
+        <button class="dock-drawer-trigger" id="dock-drawer-trigger" title="打开侧边大抽屉">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <!-- 9 大板块导航图标列表 -->
+        <nav class="dock-nav-list" id="dock-nav-list">
+          <!-- JS 动态注入 9 大板块：对话-动态-角色库-面具库-美化-钱包-收藏-购物-设置 -->
+        </nav>
+      </aside>
+
+      <!-- 2. 主页面切换视口 -->
+      <div class="main-content-area" id="main-content-area">
+        <!-- 9 大独立板块页面挂载容器 -->
+        <div class="module-page active" id="page-chat"></div>
+        <div class="module-page" id="page-feed"></div>
+        <div class="module-page" id="page-character"></div>
+        <div class="module-page" id="page-mask"></div>
+        <div class="module-page" id="page-beauty"></div>
+        <div class="module-page" id="page-wallet"></div>
+        <div class="module-page" id="page-favorite"></div>
+        <div class="module-page" id="page-shopping"></div>
+        <div class="module-page" id="page-setting"></div>
+
+        <!-- 独立全屏聊天对话窗口 (Active Chat View) -->
+        <div class="chat-conversation-view" id="chat-conversation-view"></div>
+      </div>
+
+      <!-- 3. P1 展开式多功能侧滑抽屉 (Side Drawer Overlay) -->
+      <div class="side-drawer-overlay" id="side-drawer-overlay">
+        <aside class="side-drawer-panel" id="side-drawer-panel">
+          <!-- JS 动态渲染 P1 结构：情侣状态卡片 + 对话/双人共听/钱包窗口分组 + 底部新增按钮 -->
+        </aside>
+      </div>
+
+    </section>
+
+    <!-- 底部 Home 触控手势条 -->
+    <footer class="phone-home-indicator"></footer>
+
+  </main>
+
+  <!-- 脚本模块入口 -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

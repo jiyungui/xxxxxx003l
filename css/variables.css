@@ -1,0 +1,126 @@
+/* ==========================================================================
+   AA机 - 全局变量与设计规范 (Design System & Variables)
+   纯黑白灰极简 INS 风 · 严格严禁 Emoji · 纯精致 SVG 与文字排版
+   ========================================================================== */
+
+:root {
+  /* 基础黑白灰配色 (参考 P1 质感调色板) */
+  --aa-bg-screen: #F8F9FA;
+  --aa-bg-card: #FFFFFF;
+  --aa-bg-sidebar: #FFFFFF;
+  --aa-bg-hover: #F2F3F5;
+  --aa-bg-active: #E9EBEF;
+  --aa-bg-input: #F3F4F6;
+  --aa-bg-badge: #E5E7EB;
+
+  /* 文字层级色 */
+  --aa-text-primary: #18181B;     /* 主标题/重要正文 */
+  --aa-text-secondary: #52525B;   /* 次级标题/正文 */
+  --aa-text-muted: #8E8E93;       /* 辅助说明/时间/提示 */
+  --aa-text-light: #A1A1AA;       /* 占位符/极浅说明 */
+  --aa-text-invert: #FFFFFF;      /* 反白文字 */
+
+  /* 边框与阴影 */
+  --aa-border-light: rgba(0, 0, 0, 0.05);
+  --aa-border-subtle: #E4E4E7;
+  --aa-border-dark: #27272A;
+  
+  --aa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --aa-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --aa-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+  --aa-shadow-drawer: 8px 0 24px rgba(0, 0, 0, 0.06);
+
+  /* 气泡专属颜色 */
+  --aa-bubble-me: #18181B;        /* 我发出的消息：纯深炭黑 */
+  --aa-bubble-me-text: #FFFFFF;
+  --aa-bubble-other: #F4F4F5;     /* 对方发出的消息：极浅质感灰白 */
+  --aa-bubble-other-text: #18181B;
+
+  /* 尺寸与圆角规范 */
+  --aa-radius-sm: 8px;
+  --aa-radius-md: 14px;
+  --aa-radius-lg: 20px;
+  --aa-radius-xl: 28px;
+  --aa-radius-full: 9999px;
+
+  /* 动画过渡 */
+  --aa-transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --aa-transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --aa-transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 字体家族 */
+  --aa-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --aa-font-mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* 移动端安全区域变量 */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+/* 全局基础重置 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #E5E7EB;
+}
+
+body {
+  font-family: var(--aa-font-sans);
+  color: var(--aa-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.01em;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 允许文本选中区域 */
+.selectable-text, input, textarea {
+  user-select: text;
+}
+
+/* 自定义极细滚动条 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.24);
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  outline: none;
+  transition: var(--aa-transition-fast);
+}
+
+input, textarea {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  background: transparent;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "AA机",
+  "short_name": "AA机",
+  "description": "极简黑白灰 INS 风手机模拟系统",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#F8F9FA",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%2318181B'><rect width='512' height='512' rx='128' fill='%2318181B'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='%23FFFFFF' font-size='180' font-family='sans-serif' font-weight='bold'>AA</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

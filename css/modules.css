@@ -1,0 +1,556 @@
+/* ==========================================================================
+   AA机 - 8大衍生功能板块样式集合 (Modules Style)
+   板块：动态 · 角色库 · 面具库 · 美化 · 钱包 · 收藏 · 购物 · 设置
+   严格遵循黑白灰极简 INS 调性 · 纯文字/SVG/符号 · 零 Emoji
+   ========================================================================== */
+
+/* 通用模块 Header 头部 */
+.module-header {
+  padding: 16px 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--aa-bg-screen);
+  flex-shrink: 0;
+}
+
+.module-header-title h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--aa-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.module-header-title p {
+  font-size: 11px;
+  color: var(--aa-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.module-content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ==========================================================================
+   1. 动态板块 (Feed & Moments)
+   ========================================================================== */
+.feed-card {
+  background: var(--aa-bg-card);
+  border-radius: var(--aa-radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: var(--aa-shadow-sm);
+}
+
+.feed-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feed-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.feed-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.feed-names h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+}
+
+.feed-names span {
+  font-size: 10px;
+  color: var(--aa-text-muted);
+}
+
+.feed-body-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--aa-text-secondary);
+}
+
+.feed-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.feed-grid-photo {
+  aspect-ratio: 1/1;
+  background-size: cover;
+  background-position: center;
+  background-color: #F3F4F6;
+  border-radius: 8px;
+}
+
+.feed-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid #F4F4F5;
+  color: var(--aa-text-muted);
+  font-size: 11px;
+}
+
+.feed-action-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.feed-act-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--aa-text-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.feed-act-btn:hover {
+  color: var(--aa-text-primary);
+}
+
+.feed-act-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ==========================================================================
+   2. 角色库板块 (Characters / Personas)
+   ========================================================================== */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.character-card {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  transition: var(--aa-transition-fast);
+}
+
+.character-card:hover {
+  border-color: #18181B;
+  transform: translateY(-2px);
+  box-shadow: var(--aa-shadow-md);
+}
+
+.character-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 8px;
+}
+
+.character-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+}
+
+.character-tag {
+  font-size: 10px;
+  color: var(--aa-text-muted);
+  background: #F4F4F5;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin: 4px 0 8px;
+}
+
+.character-btn {
+  width: 100%;
+  padding: 6px 0;
+  border-radius: 10px;
+  background: #18181B;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3. 面具库板块 (Masks / Sub-Identities)
+   ========================================================================== */
+.mask-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mask-item-card {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.mask-item-card.current {
+  border: 1.5px solid #18181B;
+}
+
+.mask-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mask-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+.mask-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+}
+
+.mask-info p {
+  font-size: 11px;
+  color: var(--aa-text-muted);
+  margin-top: 2px;
+}
+
+.mask-badge-status {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #F4F4F5;
+  color: var(--aa-text-secondary);
+}
+
+.mask-item-card.current .mask-badge-status {
+  background: #18181B;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   4. 美化板块 (Customization / Theme)
+   ========================================================================== */
+.theme-section-box {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-sec-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--aa-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.theme-color-palette {
+  display: flex;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: var(--aa-transition-fast);
+}
+
+.color-swatch.active {
+  border-color: #18181B;
+  transform: scale(1.1);
+}
+
+.theme-preview-box {
+  height: 100px;
+  border-radius: 12px;
+  background: #F4F5F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--aa-border-subtle);
+  font-size: 12px;
+  color: var(--aa-text-muted);
+}
+
+/* ==========================================================================
+   5. 钱包板块 (Puppy Wallet · 贴合 P1)
+   ========================================================================== */
+.wallet-card-main {
+  background: #18181B;
+  color: #FFFFFF;
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+.wallet-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wallet-card-top span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.wallet-balance-num {
+  font-size: 32px;
+  font-weight: 800;
+  font-family: var(--aa-font-mono);
+  letter-spacing: -0.03em;
+}
+
+.wallet-action-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.wallet-sub-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 0;
+  border-radius: 10px;
+  text-align: center;
+  transition: background 0.15s ease;
+}
+
+.wallet-sub-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.wallet-transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wallet-tx-item {
+  background: var(--aa-bg-card);
+  padding: 12px 14px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.tx-left h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--aa-text-primary);
+}
+
+.tx-left span {
+  font-size: 10px;
+  color: var(--aa-text-muted);
+}
+
+.tx-amount {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--aa-font-mono);
+}
+
+.tx-amount.minus {
+  color: #18181B;
+}
+
+.tx-amount.plus {
+  color: #10B981;
+}
+
+/* ==========================================================================
+   6. 收藏板块 (Favorites / Quotes)
+   ========================================================================== */
+.fav-quote-card {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  padding: 16px;
+  border-left: 3px solid #18181B;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--aa-shadow-sm);
+}
+
+.fav-quote-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--aa-text-primary);
+  font-style: italic;
+}
+
+.fav-quote-from {
+  font-size: 11px;
+  color: var(--aa-text-muted);
+  text-align: right;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   7. 购物板块 (Store & Mall)
+   ========================================================================== */
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.store-card {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.store-thumb {
+  height: 90px;
+  background: #F4F5F7;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.store-card h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+  margin-top: 4px;
+}
+
+.store-card-bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.store-price {
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--aa-font-mono);
+}
+
+.store-buy-btn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #18181B;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   8. 设置板块 (Settings / System)
+   ========================================================================== */
+.settings-group {
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  cursor: pointer;
+  transition: background var(--aa-transition-fast);
+  border-bottom: 1px solid #F4F4F5;
+}
+
+.settings-item-row:last-child {
+  border-bottom: none;
+}
+
+.settings-item-row:hover {
+  background: var(--aa-bg-hover);
+}
+
+.settings-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--aa-text-primary);
+}
+
+.settings-item-left svg {
+  width: 16px;
+  height: 16px;
+  color: var(--aa-text-secondary);
+}
+
+.settings-item-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--aa-text-muted);
+}
+
+.settings-item-right svg {
+  width: 14px;
+  height: 14px;
+}

@@ -1,0 +1,1093 @@
+/* ==========================================================================
+   AA机 - Chat 对话模块样式 (P1 Profile Widget & Clean Chat List)
+   纯黑白灰极简 INS 风格 · 杜绝 Emoji · 零损画质 · 纯纯净视觉
+   ========================================================================== */
+
+/* 1. 对话模块外层容器 */
+.chat-module-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--aa-bg-screen);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 24px;
+}
+
+/* ==========================================================================
+   2. P1 个人主页/卡片顶置小组件 (Profile Header Widget)
+   ========================================================================== */
+.profile-widget-container {
+  padding: 12px 14px 10px;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.profile-widget-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding-bottom: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 顶部横幅 Banner (默认纯浅灰冷淡高级底色，点击即换图，无多余标签) */
+.profile-banner-wrap {
+  position: relative;
+  width: 100%;
+  height: 110px;
+  background-color: #27272A;
+  background-image: linear-gradient(135deg, #1F1F23 0%, #3F3F46 100%);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 20px 20px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+
+.profile-banner-wrap:hover {
+  opacity: 0.95;
+}
+
+.profile-banner-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.profile-banner-tag {
+  position: relative;
+  z-index: 2;
+  color: #FFFFFF;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  opacity: 0.95;
+  outline: none;
+  cursor: text;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* 中间行：悬浮头像 + 右侧按钮 */
+.profile-action-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: -38px;
+  position: relative;
+  z-index: 10;
+}
+
+/* 悬浮圆形头像 (默认浅灰极简底色) */
+.profile-avatar-wrap {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  padding: 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-color: #E4E4E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+  transition: transform var(--aa-transition-fast);
+}
+
+.profile-avatar-img svg {
+  width: 32px;
+  height: 32px;
+}
+
+.profile-avatar-wrap:hover .profile-avatar-img {
+  transform: scale(1.02);
+}
+
+.profile-avatar-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background: #18181B;
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.profile-avatar-badge svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* 右侧操作按钮群 */
+.profile-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.btn-profile-edit {
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #18181B;
+  background: #FFFFFF;
+  border: 1px solid #E4E4E7;
+  cursor: pointer;
+  transition: var(--aa-transition-fast);
+}
+
+.btn-profile-edit:hover {
+  background: #F4F4F5;
+  border-color: #D4D4D8;
+}
+
+.btn-profile-follow {
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #18181B;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(24, 24, 27, 0.18);
+  transition: var(--aa-transition-fast);
+}
+
+.btn-profile-follow:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* 下方文本信息流 */
+.profile-details-wrap {
+  padding: 12px 18px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #18181B;
+  letter-spacing: -0.02em;
+  outline: none;
+  display: inline-block;
+  cursor: text;
+  border-radius: 4px;
+  padding: 1px 2px;
+  transition: background 0.15s;
+}
+
+.profile-name-title:focus,
+.profile-handle:focus,
+.profile-bio:focus,
+.profile-stat-item b:focus,
+.profile-banner-tag:focus {
+  background: #F4F4F5;
+}
+
+.profile-handle {
+  font-size: 12px;
+  color: #8E8E93;
+  font-weight: 500;
+  margin-top: 2px;
+  outline: none;
+  cursor: text;
+  display: inline-block;
+}
+
+.profile-bio {
+  font-size: 13px;
+  color: #27272A;
+  line-height: 1.45;
+  margin-top: 10px;
+  outline: none;
+  cursor: text;
+  word-break: break-word;
+}
+
+/* 粉丝与动态统计数据 */
+.profile-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #F4F4F5;
+}
+
+.profile-stat-item {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  color: #8E8E93;
+}
+
+.profile-stat-item b {
+  font-size: 14px;
+  font-weight: 800;
+  color: #18181B;
+  font-family: var(--aa-font-mono);
+  outline: none;
+  cursor: text;
+}
+
+/* ==========================================================================
+   3. 小组件下方操作区：精致搜索栏 + 新建对话条 (Search & Action Bar)
+   ========================================================================== */
+.chat-middle-controls {
+  padding: 2px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* 高质感极简搜索框 */
+.chat-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: var(--aa-transition-fast);
+}
+
+.chat-search-bar:focus-within {
+  border-color: #18181B;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.chat-search-bar svg {
+  width: 15px;
+  height: 15px;
+  color: #8E8E93;
+  stroke-width: 2.2;
+}
+
+.chat-search-bar input {
+  flex: 1;
+  font-size: 12px;
+  color: #18181B;
+  font-weight: 500;
+}
+
+.chat-search-bar input::placeholder {
+  color: #A1A1AA;
+}
+
+/* 高级 INS 风格新建对话条 / 卡片按钮 */
+.chat-new-entry-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 10px 14px;
+  border: 1px dashed #D4D4D8;
+  cursor: pointer;
+  transition: var(--aa-transition-fast);
+}
+
+.chat-new-entry-card:hover {
+  border-color: #18181B;
+  background: #FAFAFA;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.chat-new-entry-card:active {
+  transform: scale(0.99);
+}
+
+.new-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.new-entry-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #18181B;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-entry-icon-box svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+}
+
+.new-entry-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-entry-text .title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #18181B;
+}
+
+.new-entry-text .desc {
+  font-size: 10px;
+  color: #8E8E93;
+}
+
+.new-entry-right-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #52525B;
+  background: #F4F4F5;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ==========================================================================
+   4. 对话列表流 (Chat Stream List)
+   ========================================================================== */
+.chat-section-header {
+  padding: 4px 18px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8E8E93;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.chat-section-count {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--aa-font-mono);
+  color: #A1A1AA;
+}
+
+.chat-items-list {
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--aa-bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: var(--aa-transition-fast);
+}
+
+.chat-list-item:hover {
+  background: #FFFFFF;
+  border-color: var(--aa-border-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--aa-shadow-sm);
+}
+
+.chat-item-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.chat-item-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+  background-color: #E4E4E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+}
+
+.chat-item-avatar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.chat-online-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #18181B;
+  border: 2px solid #FFFFFF;
+}
+
+.chat-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-item-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.chat-item-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-item-time {
+  font-size: 11px;
+  color: var(--aa-text-muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.chat-item-bot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.chat-item-preview {
+  font-size: 12px;
+  color: var(--aa-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.chat-unread-badge {
+  background: #18181B;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* 空状态占位提示 (纯净极简) */
+.chat-empty-state {
+  text-align: center;
+  padding: 28px 20px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-empty-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F4F4F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8E8E93;
+  margin-bottom: 2px;
+}
+
+.chat-empty-state p {
+  color: #71717A;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chat-empty-state span {
+  color: #A1A1AA;
+  font-size: 10px;
+}
+
+/* ==========================================================================
+   5. 独立全屏聊天对话窗口 (Active Chat Conversation Window)
+   ========================================================================== */
+.chat-conversation-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--aa-bg-screen);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--aa-transition-normal);
+}
+
+.chat-conversation-view.active {
+  transform: translateX(0);
+}
+
+.conv-header {
+  height: 54px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(248, 249, 250, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.conv-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conv-back-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aa-text-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--aa-border-subtle);
+  transition: var(--aa-transition-fast);
+}
+
+.conv-back-btn:hover {
+  background: #18181B;
+  color: #FFFFFF;
+}
+
+.conv-user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.conv-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-color: #E4E4E7;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+}
+
+.conv-user-avatar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.conv-user-meta h2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--aa-text-primary);
+  line-height: 1.1;
+}
+
+.conv-user-meta p {
+  font-size: 10px;
+  color: var(--aa-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.conv-user-meta .status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #18181B;
+}
+
+.conv-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.conv-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aa-text-secondary);
+}
+
+.conv-action-btn:hover {
+  background: var(--aa-bg-hover);
+  color: var(--aa-text-primary);
+}
+
+.conv-messages-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.conv-time-divider {
+  align-self: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--aa-text-light);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.conv-message-row {
+  display: flex;
+  gap: 8px;
+  max-width: 82%;
+  animation: messageFadeIn 0.2s ease forwards;
+}
+
+@keyframes messageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.conv-message-row.me {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.conv-message-row.other {
+  align-self: flex-start;
+}
+
+.conv-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-color: #E4E4E7;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+}
+
+.conv-msg-avatar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.conv-bubble-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conv-message-row.me .conv-bubble-box {
+  align-items: flex-end;
+}
+
+.conv-bubble {
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  border-radius: 18px;
+  word-break: break-word;
+  position: relative;
+  letter-spacing: -0.01em;
+}
+
+.conv-message-row.me .conv-bubble {
+  background: var(--aa-bubble-me);
+  color: var(--aa-bubble-me-text);
+  border-bottom-right-radius: 4px;
+}
+
+.conv-message-row.other .conv-bubble {
+  background: var(--aa-bubble-other);
+  color: var(--aa-bubble-other-text);
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.conv-msg-meta {
+  font-size: 9px;
+  color: var(--aa-text-muted);
+  padding: 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.conv-input-bar {
+  padding: 10px 14px 12px;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.conv-input-attach-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aa-text-secondary);
+  background: var(--aa-bg-input);
+  flex-shrink: 0;
+}
+
+.conv-input-attach-btn:hover {
+  background: #18181B;
+  color: #FFFFFF;
+}
+
+.conv-input-field-wrap {
+  flex: 1;
+  background: var(--aa-bg-input);
+  border-radius: 20px;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  transition: var(--aa-transition-fast);
+}
+
+.conv-input-field-wrap:focus-within {
+  background: #FFFFFF;
+  border-color: var(--aa-border-subtle);
+  box-shadow: var(--aa-shadow-sm);
+}
+
+.conv-input-field {
+  width: 100%;
+  font-size: 13px;
+  color: var(--aa-text-primary);
+  max-height: 80px;
+  resize: none;
+}
+
+.conv-input-field::placeholder {
+  color: var(--aa-text-light);
+}
+
+.conv-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #18181B;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--aa-transition-fast), background var(--aa-transition-fast);
+}
+
+.conv-send-btn:hover {
+  transform: scale(1.06);
+}
+
+.conv-send-btn:active {
+  transform: scale(0.92);
+}
+
+.conv-send-btn svg {
+  width: 15px;
+  height: 15px;
+  margin-left: 2px;
+}
+
+/* ==========================================================================
+   6. 极简黑白灰 INS 图片位置与构图调节弹窗 (Image Adjuster Modal)
+   ========================================================================== */
+.img-adjust-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.img-adjust-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.img-adjust-dialog {
+  width: 100%;
+  max-width: 360px;
+  background: #FFFFFF;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.adjust-modal-header {
+  padding: 16px 20px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F4F4F5;
+}
+
+.adjust-modal-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #18181B;
+}
+
+.adjust-modal-close-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #F4F4F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+  cursor: pointer;
+  transition: var(--aa-transition-fast);
+}
+
+.adjust-modal-close-btn:hover {
+  background: #18181B;
+  color: #FFFFFF;
+}
+
+/* 核心预览视口 */
+.adjust-viewport-wrap {
+  padding: 16px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adjust-crop-frame {
+  width: 100%;
+  height: 120px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  background: #18181B;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0,0,0,0.1);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.adjust-crop-frame:active {
+  cursor: grabbing;
+}
+
+.adjust-image-target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
+  max-width: none;
+}
+
+.adjust-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border: 1.5px dashed rgba(255, 255, 255, 0.45);
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.adjust-drag-tip {
+  font-size: 10px;
+  color: #8E8E93;
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+}
+
+/* 调节控制滑条面板 */
+.adjust-controls-panel {
+  padding: 8px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.adjust-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adjust-slider-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #71717A;
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.adjust-range-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: #E4E4E7;
+  outline: none;
+}
+
+.adjust-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #18181B;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s;
+}
+
+.adjust-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.adjust-actions-footer {
+  padding: 12px 20px 18px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #F4F4F5;
+}
+
+.btn-adjust-reset {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #71717A;
+  background: #F4F4F5;
+  cursor: pointer;
+  transition: var(--aa-transition-fast);
+}
+
+.btn-adjust-reset:hover {
+  background: #E4E4E7;
+  color: #18181B;
+}
+
+.btn-adjust-confirm {
+  flex: 2;
+  padding: 10px 0;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #18181B;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(24, 24, 27, 0.2);
+  transition: var(--aa-transition-fast);
+}
+
+.btn-adjust-confirm:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
